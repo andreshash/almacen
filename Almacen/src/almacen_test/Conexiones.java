@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Cristiam
+ * @author 
  */
 public class Conexiones {
     //Inicio atributos
@@ -83,13 +83,13 @@ public class Conexiones {
      * @throws SQLException
      */
     public void disconnect() throws SQLException{
-        this.conDB.close();    
+        this.conDB.close();
         System.out.println("Desconexión a base de datos... OK");
     }
     
     /**
      * 
-     * @return
+     * @return nombre de base de datos
      */
     public String get_dbname(){
         return this.dbname;

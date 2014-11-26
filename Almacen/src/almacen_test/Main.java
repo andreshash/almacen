@@ -7,7 +7,7 @@ package almacen_test;
 
 /**
  *
- * @author YULIAN
+ * @author 
  */
 public class Main {
 
@@ -15,13 +15,11 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        PRINCIPAL frmlogin = new PRINCIPAL();
-        frmlogin.setLocationRelativeTo(null);
-        frmlogin.setResizable(false);
-        frmlogin.setTitle(" ALMACEN");
-        frmlogin.setVisible(true);
-
-
+        PRINCIPAL login = new PRINCIPAL();
+        login.setLocationRelativeTo(null);
+        login.setResizable(false);
+        login.setTitle(" ALMACEN");
+        login.setVisible(true);
 
     }
 

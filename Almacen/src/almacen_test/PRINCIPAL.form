@@ -75,14 +75,14 @@
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="149" max="-2" attributes="0"/>
                               <Component id="AGREGAR" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="82" max="32767" attributes="0"/>
+                              <EmptySpace pref="62" max="32767" attributes="0"/>
                               <Component id="ELIMINAR" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                              <Component id="Nuevo" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                               <Component id="salir" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane1" alignment="0" pref="842" max="32767" attributes="1"/>
+                          <Component id="jScrollPane1" alignment="0" pref="822" max="32767" attributes="1"/>
                       </Group>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   </Group>
@@ -99,7 +99,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="salir" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="Nuevo" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="ELIMINAR" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
@@ -161,8 +161,8 @@
                           </Group>
                           <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="NOMBRE_PRODUCT" pref="585" max="32767" attributes="0"/>
-                              <Component id="PROVEEDOR" pref="585" max="32767" attributes="0"/>
+                              <Component id="NOMBRE_PRODUCT" pref="565" max="32767" attributes="0"/>
+                              <Component id="PROVEEDOR" pref="565" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="CANTIDAD" min="-2" pref="80" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
@@ -325,12 +325,12 @@
                 <Property name="text" type="java.lang.String" value="De doble clic sobre algun producto"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="Nuevo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="NUEVO"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NuevoActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="ELIMINAR">

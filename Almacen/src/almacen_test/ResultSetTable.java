@@ -7,9 +7,8 @@ package almacen_test;
 
 /**
  *
- * @author vivi
+ * @author 
  */
-import java.sql.*;
 import java.sql.*;
 import java.util.ArrayList;
 import javax.swing.event.*;

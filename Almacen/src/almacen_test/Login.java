@@ -11,8 +11,8 @@ import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
  */
 public class Login extends javax.swing.JFrame {
 
-    /** Creates new form frm_login */
-    Conexiones conect =new Conexiones();
+    /** Creates new object Conexiones */
+    Conexiones conect = new Conexiones();//acceder a los metodos
     public Login() {
         initComponents();
 
@@ -157,18 +157,19 @@ public class Login extends javax.swing.JFrame {
     private void btn_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_loginActionPerformed
         String usuario = nombre_usuario.getText();
         char pass[] = contraseña.getPassword();
+        //conversion
         String contrasena = new String(pass);
 
         if (usuario.length() != 0 || contrasena.length() != 0){
             System.out.print("DATOS"+usuario+" "+contrasena);
             try {
                 conect.connect();
-                String sql = "SELECT * FROM usuarios WHERE usuario='" + usuario + "' AND contrasena='" + contrasena + "'";
+                 String sql = "SELECT * FROM Usuarios WHERE usuario='" + usuario+ "' AND contrasena='" + contrasena + "'";
                  PreparedStatement pat = conect.conDB.prepareStatement(sql);
                     ResultSet resul = pat.executeQuery();
-                    if (resul.next()) {
+                    if (resul.next()) {//si existe algo?
                           new PRINCIPAL().setVisible(true);
-                          this.setVisible(false);
+                          this.setVisible(false);//oculta login
                     } else {
                         JOptionPane.showMessageDialog(this, "No existe un usuario", "Almacen", 0);
                     }
@@ -179,7 +180,7 @@ public class Login extends javax.swing.JFrame {
             
 
         }else{
-          JOptionPane.showMessageDialog(this, "Ingrese datos para iniciar sesión.", "Almacen", 0);
+          JOptionPane.showMessageDialog(this, "Ingrese datos para iniciar sesión.", "Almacen", 2);
 
         }
 

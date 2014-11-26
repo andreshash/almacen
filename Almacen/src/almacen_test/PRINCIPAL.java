@@ -7,11 +7,9 @@ package almacen_test;
 import java.awt.Component;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -66,7 +64,7 @@ public class PRINCIPAL extends javax.swing.JFrame {
         salir = new javax.swing.JButton();
         AGREGAR = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        Nuevo = new javax.swing.JButton();
         ELIMINAR = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -154,8 +152,8 @@ public class PRINCIPAL extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(55, 55, 55)
                 .addGroup(panel_datos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(NOMBRE_PRODUCT, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
-                    .addComponent(PROVEEDOR, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+                    .addComponent(NOMBRE_PRODUCT, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
+                    .addComponent(PROVEEDOR, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
                     .addGroup(panel_datos1Layout.createSequentialGroup()
                         .addComponent(CANTIDAD, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(66, 66, 66)
@@ -212,10 +210,10 @@ public class PRINCIPAL extends javax.swing.JFrame {
 
         jLabel1.setText("De doble clic sobre algun producto");
 
-        jButton1.setText("NUEVO");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Nuevo.setText("NUEVO");
+        Nuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                NuevoActionPerformed(evt);
             }
         });
 
@@ -239,13 +237,13 @@ public class PRINCIPAL extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(149, 149, 149)
                         .addComponent(AGREGAR)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                         .addComponent(ELIMINAR)
                         .addGap(57, 57, 57)
-                        .addComponent(jButton1)
+                        .addComponent(Nuevo)
                         .addGap(40, 40, 40)
                         .addComponent(salir))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 842, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 822, Short.MAX_VALUE))
                 .addGap(27, 27, 27))
         );
         pentradaLayout.setVerticalGroup(
@@ -259,7 +257,7 @@ public class PRINCIPAL extends javax.swing.JFrame {
                 .addGroup(pentradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pentradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(salir)
-                        .addComponent(jButton1)
+                        .addComponent(Nuevo)
                         .addComponent(ELIMINAR))
                     .addGroup(pentradaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
@@ -290,11 +288,11 @@ public class PRINCIPAL extends javax.swing.JFrame {
 
        
    
-    
+    //agregar y editar(selecciona en la tabla)
 private void AGREGARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AGREGARActionPerformed
     
     int confirmado = JOptionPane.showConfirmDialog(componentePadre,"¿Lo confirmas?");
-       if (JOptionPane.OK_OPTION == confirmado){
+       if (JOptionPane.OK_OPTION == confirmado){//oprimio ok
     
         String Categoria = (String)categoria.getSelectedItem();
               
@@ -308,25 +306,25 @@ private void AGREGARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
             if(GetCurrentId() != 0){
                sql ="UPDATE productos SET Nombre = ?,Referencia = ?,Cantidad = ?,Valor = ?,Categoria = ?,Proveedor = ? WHERE idProductos = "+GetCurrentId();
                System.out.print("update =="+sql);
-               PreparedStatement pst = conectar.conDB.prepareStatement(sql);// con esta sentencia se insertan los datos en la base de datos
+                PreparedStatement pst = conectar.conDB.prepareStatement(sql);// con esta sentencia se insertan los datos en la base de datos
                 pst.setString(1,  this.NOMBRE_PRODUCT.getText());
                 pst.setString(2, REFERENCIA.getText());
                 pst.setString(3,  CANTIDAD.getText() );
                 pst.setString(4, VALOR.getText());
-                pst.setString(5, Categoria);
+                pst.setString(5, (String)categoria.getSelectedItem());
                 pst.setString(6, this.PROVEEDOR.getText());
                 int n = pst.executeUpdate();//valida si se guardaron los datos; si pst>0 entonces se actualizaron
                 if(n > 0){
                  JOptionPane.showMessageDialog(this, "Producto Actualizado", "Almacen", 1);
-                 resulTable();
+                 resulTable();//refresto tabla
                 }
                 SetCurrentId(0);
-        }else{
+        }else{ //insert
             java.sql.Statement stm = conectar.conDB.createStatement();
             i=stm.executeUpdate(sql);
             if(i !=0){
                JOptionPane.showMessageDialog(this, "Nuevo Producto ingresado", "Almacen", 1);
-               resulTable();
+               resulTable();//refresco
                GetCurrentId();
             }
             stm.close();
@@ -375,12 +373,13 @@ private void tablaproductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FI
         int j = this.tablaproductos.getSelectedRow();
         this.SetCurrentId(Integer.parseInt(""+tablaproductos.getValueAt(j,0)));
         System.out.print("valor"+GetCurrentId());
+
+        //asignar los valores a los text field
         this.NOMBRE_PRODUCT.setText("" + tablaproductos.getValueAt(j, 1));
         this.REFERENCIA.setText("" + tablaproductos.getValueAt(j, 2));
         this.CANTIDAD.setText("" + tablaproductos.getValueAt(j, 3));
         this.VALOR.setText("" +tablaproductos.getValueAt(j, 4));
         this.PROVEEDOR.setText("" + tablaproductos.getValueAt(j, 6));
-        //this.activar.setEnabled(true);
 
     }//GEN-LAST:event_tablaproductosMousePressed
 
@@ -388,9 +387,9 @@ private void tablaproductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FI
         // TOD
     }//GEN-LAST:event_tablaproductosMouseEntered
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NuevoActionPerformed
         initial();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_NuevoActionPerformed
 
     private void ELIMINARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ELIMINARActionPerformed
         int confirmado = JOptionPane.showConfirmDialog(componentePadre,"Desea Eliminarlo?");
@@ -505,12 +504,12 @@ private void tablaproductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FI
     public javax.swing.JTextField CANTIDAD;
     private javax.swing.JButton ELIMINAR;
     public javax.swing.JTextField NOMBRE_PRODUCT;
+    private javax.swing.JButton Nuevo;
     public javax.swing.JTextField PROVEEDOR;
     private javax.swing.JLabel Precio1;
     public javax.swing.JTextField REFERENCIA;
     public javax.swing.JTextField VALOR;
     private javax.swing.JComboBox categoria;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
